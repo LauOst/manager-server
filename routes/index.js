@@ -13,7 +13,7 @@ router.post('/login', async (ctx) => {
         })
         const token = sign({
             data: res
-        }, 'note', {expiresIn: '1h'})
+        }, 'note', {expiresIn: '5h'})
 
         if (res) {
             ctx.body = util.success({access_token: token})
@@ -38,7 +38,7 @@ router.get('/userInfo',  async (ctx) => {
     let payload
     if (token) {
         payload = await verify(token.split(' ')[1], 'note')
-        ctx.body = util.success({...payload, roles: ['admin'] })
+        ctx.body = util.success({...payload })
     } else {
         ctx.body = util.fail("token error")
     }
